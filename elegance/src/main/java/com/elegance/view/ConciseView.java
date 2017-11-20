@@ -23,6 +23,7 @@ public class ConciseView extends ViewGroup {
 
     public static final int GRID_ELEGANT = 0x00;
     public static final int CIRCLE_ELEGANT = 0x01;
+    public static final int INTERVAL_ELEGANT = 0x02;
     public static final int GRID_HORIZONTAL = 2;
     public static final int CIRCLE_VERTICAL = 4;
     private static final int CENTER = 2;
@@ -59,7 +60,9 @@ public class ConciseView extends ViewGroup {
                     case CIRCLE_ELEGANT:
                         layoutCircle(i, children, childCount, childrenMeasuredWidth, paddingTop, paddingBottom);
                         break;
-
+                    case INTERVAL_ELEGANT:
+                        layoutInterval(i, children, paddingTop, childrenHeight, paddingBottom);
+                        break;
                 }
             }
         }
@@ -71,6 +74,16 @@ public class ConciseView extends ViewGroup {
             children.layout(offset * position, paddingTop, offset * (position + 1), childrenHeight + paddingBottom);
         } else {
             children.layout(offset * (position - CENTER), childrenHeight + paddingTop, offset * (position - CENTER + 1), childrenHeight * CENTER + paddingBottom);
+        }
+        this.performItemClick(children, position);
+    }
+
+    private void layoutInterval(final int position, final View children, int paddingTop, int childrenHeight, int paddingBottom) {
+        int offset = getWidth()  / GRID_HORIZONTAL;
+        if (position < GRID_HORIZONTAL) {
+            children.layout(offset * position+getPaddingLeft(), paddingTop, offset * (position + 1)-getPaddingRight(), childrenHeight + paddingBottom);
+        } else {
+            children.layout(offset * (position - CENTER)+getPaddingLeft(), childrenHeight + paddingBottom*3, offset * (position - CENTER + 1)-getPaddingRight()/1, childrenHeight * CENTER + paddingBottom*3);
         }
         this.performItemClick(children, position);
     }
@@ -102,6 +115,9 @@ public class ConciseView extends ViewGroup {
             View children = getChildAt(i);
             measureChild(children, widthMeasureSpec, heightMeasureSpec);
             switch (elegantType) {
+                case INTERVAL_ELEGANT:
+                    height = children.getMeasuredHeight() * CENTER+getPaddingTop()*3;
+                    break;
                 case GRID_ELEGANT:
                     height = children.getMeasuredHeight() * CENTER;
                     break;

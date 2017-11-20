@@ -40,17 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String [] strings = new String[]{url_01,url_02,url_03,url_04,url_05};
-        List<View> list = new ArrayList<>();
-        for (String s:strings){
-            ImageView imageView = new ImageView(this);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            Glide.with(this).load(s).into(imageView);
-            list.add(imageView);
-        }
 
-        Carousels carousels = findViewById(R.id.Carousels);
-        carousels.setViews(list,5000);
 
 
     }
