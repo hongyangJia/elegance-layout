@@ -25,6 +25,7 @@ public class ConciseView extends ViewGroup {
     private static final int CENTER = 2;
     private OnItemClickListener onItemClickListener;
     private int elegantType = GRID_ELEGANT;
+
     public ConciseView(Context context) {
         super(context);
     }
@@ -68,23 +69,23 @@ public class ConciseView extends ViewGroup {
         } else {
             children.layout(offset * (position - CENTER), childrenHeight + paddingTop, offset * (position - CENTER + 1), childrenHeight * CENTER + paddingBottom);
         }
-        this.performItemClick(children,position);
+        this.performItemClick(children, position);
     }
 
     private void layoutCircle(int position, View children, int childCount, int childrenMeasuredWidth, int paddingTop, int paddingBottom) {
         int offset = getWidth() / childCount;
         int childrenLift = offset * position + offset / CENTER - childrenMeasuredWidth / CENTER;
         int childrenRight = offset * position + offset / CENTER + childrenMeasuredWidth / CENTER;
-        children.layout(childrenLift, paddingTop, childrenRight,children.getMeasuredHeight() +paddingBottom);
-        this.performItemClick(children,position);
+        children.layout(childrenLift, paddingTop, childrenRight, children.getMeasuredHeight() + paddingBottom);
+        this.performItemClick(children, position);
     }
 
-    private void performItemClick(final View children, final int position){
-        if (onItemClickListener!=null){
+    private void performItemClick(final View children, final int position) {
+        if (onItemClickListener != null) {
             children.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.onItemClick(children,position);
+                    onItemClickListener.onItemClick(children, position);
                 }
             });
         }
@@ -112,25 +113,29 @@ public class ConciseView extends ViewGroup {
                 height + getPaddingTop() + getPaddingBottom());
     }
 
-    public void setPictures(List<Bitmap> bitmaps){
+    public void setPictures(List<Bitmap> bitmaps) {
         ImageView imageView;
-        for (Bitmap bitmap:bitmaps){
-           imageView = new ImageView(getContext());
-           imageView.setImageBitmap(bitmap);
-           addView(imageView);
+        for (Bitmap bitmap : bitmaps) {
+            imageView = new ImageView(getContext());
+            imageView.setImageBitmap(bitmap);
+            addView(imageView);
         }
     }
 
-    public void setElegantType(int elegantType){
-        this.elegantType=elegantType;
+    public void setPictures(ImageView imageView){
+           addView(imageView);
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
-        this.onItemClickListener=onItemClickListener;
+    public void setElegantType(int elegantType) {
+        this.elegantType = elegantType;
     }
 
-    public interface  OnItemClickListener{
-           void  onItemClick(View view, int position);
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
     }
 
 }
