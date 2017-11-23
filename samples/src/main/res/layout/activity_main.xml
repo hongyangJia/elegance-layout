@@ -6,78 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.elegance.samples.MainActivity">
 
-  <com.elegance.view.ConciseView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:layout_concise_style="2"
-      android:padding="2dp"
-      >
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-      <ImageView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:scaleType="fitXY"
-          android:background="@mipmap/xiaomokuai1_720"/>
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="hahahha"
-          />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+<com.elegance.view.ConciseView
+    android:id="@+id/conciseView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_concise_style="0"
+    >
 
-        >
-      <ImageView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:scaleType="fitXY"
-          android:background="@mipmap/xiaomokuai1_720"/>
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="hahahha"
-          />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-
-        >
-      <ImageView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:scaleType="fitXY"
-          android:background="@mipmap/xiaomokuai1_720"/>
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="hahahha"
-          />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-
-        >
-      <ImageView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:scaleType="fitXY"
-          android:background="@mipmap/xiaomokuai1_720"/>
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="hahahha"
-          />
-    </RelativeLayout>
-
-
-  </com.elegance.view.ConciseView>
+</com.elegance.view.ConciseView>
 </android.support.constraint.ConstraintLayout>

@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -27,8 +28,9 @@ public class ConciseView extends ViewGroup {
     public static final int GRID_HORIZONTAL = 2;
     public static final int CIRCLE_VERTICAL = 4;
     private static final int CENTER = 2;
-    private OnItemClickListener onItemClickListener;
+
     private int elegantType = GRID_ELEGANT;
+    private Converter vConverter;
 
     public ConciseView(Context context) {
         super(context);
@@ -79,11 +81,11 @@ public class ConciseView extends ViewGroup {
     }
 
     private void layoutInterval(final int position, final View children, int paddingTop, int childrenHeight, int paddingBottom) {
-        int offset = getWidth()  / GRID_HORIZONTAL;
+        int offset = getWidth() / GRID_HORIZONTAL;
         if (position < GRID_HORIZONTAL) {
-            children.layout(offset * position+getPaddingLeft(), paddingTop, offset * (position + 1)-getPaddingRight(), childrenHeight + paddingBottom);
+            children.layout(offset * position + getPaddingLeft() + (position == 1 ? getPaddingLeft() / 2 : 0), paddingTop, offset * (position + 1) - (position == 1 ? getPaddingRight() * 2 : getPaddingRight()), childrenHeight + paddingBottom);
         } else {
-            children.layout(offset * (position - CENTER)+getPaddingLeft(), childrenHeight + paddingBottom*3, offset * (position - CENTER + 1)-getPaddingRight()/1, childrenHeight * CENTER + paddingBottom*3);
+            children.layout(offset * (position - CENTER) + getPaddingLeft(), childrenHeight + paddingBottom * 3, offset * (position - CENTER + 1) - getPaddingRight() / 1, childrenHeight * CENTER + paddingBottom * 3);
         }
         this.performItemClick(children, position);
     }
@@ -97,11 +99,11 @@ public class ConciseView extends ViewGroup {
     }
 
     private void performItemClick(final View children, final int position) {
-        if (onItemClickListener != null) {
+        if (vConverter != null) {
             children.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.onItemClick(children, position);
+                    vConverter.onBindViewClick(position);
                 }
             });
         }
@@ -116,7 +118,7 @@ public class ConciseView extends ViewGroup {
             measureChild(children, widthMeasureSpec, heightMeasureSpec);
             switch (elegantType) {
                 case INTERVAL_ELEGANT:
-                    height = children.getMeasuredHeight() * CENTER+getPaddingTop()*3;
+                    height = children.getMeasuredHeight() * CENTER + getPaddingTop() * 3;
                     break;
                 case GRID_ELEGANT:
                     height = children.getMeasuredHeight() * CENTER;
@@ -132,29 +134,27 @@ public class ConciseView extends ViewGroup {
                 height + getPaddingTop() + getPaddingBottom());
     }
 
-    public void setPictures(List<Bitmap> bitmaps) {
-        ImageView imageView;
-        for (Bitmap bitmap : bitmaps) {
-            imageView = new ImageView(getContext());
-            imageView.setImageBitmap(bitmap);
-            addView(imageView);
+    public void setConverter(Converter converter) {
+        removeAllViews();
+        this.vConverter = converter;
+        int layout=converter.onCreateViewHolder();
+        for (int i = 0; i < 4; i++) {
+            View view = inflate(layout);
+            converter.onBindViewHolder(view, i);
+            addView(view);
         }
     }
 
-    public void setPictures(ImageView imageView){
-         addView(imageView);
+    public void setPictures(ImageView imageView) {
+        addView(imageView);
     }
 
     public void setElegantType(int elegantType) {
         this.elegantType = elegantType;
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
+    private View inflate(int layoutId) {
+        return LayoutInflater.from(getContext()).inflate(layoutId, null);
     }
 
 }

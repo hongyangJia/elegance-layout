@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,32 +36,16 @@ public class MainActivity extends AppCompatActivity {
     private static final String url_04="http://img1.xiazaizhijia.com/walls/20160909/mid_f35e64458b91d62.jpg";
     private static final String url_05="http://img1.xiazaizhijia.com/walls/20160909/mid_f35e64458b91d62.jpg";
 
+    private static View v;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-    }
-    IntervalCountDown intervalCountDown;
-    boolean is=true;
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (!is){
-            intervalCountDown.rest();
-        }
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        is=false;
-        intervalCountDown.restore();
-
+        ConciseView  conciseView=  findViewById(R.id.conciseView);
+        BeseConverter beseConverter = new BeseConverter(this);
+        conciseView.setConverter(beseConverter);
     }
 
 }

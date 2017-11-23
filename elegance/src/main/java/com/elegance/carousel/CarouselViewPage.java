@@ -49,7 +49,7 @@ public class CarouselViewPage extends ViewPager {
                 mActivePointerId = ev.getPointerId(0);
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (ev.getX() > mFirstMotionX) {
+                    if (ev.getX() > mFirstMotionX) {
                     if (onTouchChangeListener != null) {
                         onTouchChangeListener.touchChangeLift((int) (ev.getX()-mFirstMotionX));
                     }
@@ -60,11 +60,12 @@ public class CarouselViewPage extends ViewPager {
                 }
                 break;
             case MotionEvent.ACTION_UP:
+                if (onTouchChangeListener != null) {
+                    onTouchChangeListener.touchChangeReset();
+                }
             /*    mVelocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
                 int initialVelocity = (int) mVelocityTracker.getXVelocity(mActivePointerId);
                 final int currentPage = 0;
-                if (onTouchChangeListener != null) {
-                    onTouchChangeListener.touchChangeReset();
                 }*/
                 break;
         }

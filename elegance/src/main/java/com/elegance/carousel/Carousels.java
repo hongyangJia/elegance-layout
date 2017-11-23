@@ -88,12 +88,15 @@ public class Carousels extends FrameLayout implements CarouselViewPage.onTouchCh
     /**
      * @param views add views
      */
+    IntervalCountDown intervalCountDown;
+
     public void setViews(final List<View> views, int delayed) {
         CarouselsPagerAdapter carouselsPagerAdapter = new CarouselsPagerAdapter(views);
         mViewPager.setAdapter(carouselsPagerAdapter);
         this.drawPoints(views);
-
-        IntervalCountDown intervalCountDown = new IntervalCountDown();
+        if (intervalCountDown == null) {
+            intervalCountDown = new IntervalCountDown();
+        }
         final android.os.Handler handler = new android.os.Handler(Looper.getMainLooper());
         intervalCountDown.postDelayed(delayed, new IntervalCountDown.IntervalExecute() {
             @Override
@@ -145,7 +148,8 @@ public class Carousels extends FrameLayout implements CarouselViewPage.onTouchCh
 
     @Override
     public void onPageSelected(int position) {
-        mCarouselPoints.setTransition(position);
+        this.viewPagePosition = position;
+        mCarouselPoints.setTransition(viewPagePosition);
     }
 
     @Override
@@ -155,17 +159,23 @@ public class Carousels extends FrameLayout implements CarouselViewPage.onTouchCh
 
     @Override
     public void touchChangeLift(int value) {
-
+        if (!intervalCountDown.isSuspend()) {
+            intervalCountDown.restore();
+        }
     }
 
     @Override
     public void touchChangeRight(int value) {
-
+        if (!intervalCountDown.isSuspend()) {
+            intervalCountDown.restore();
+        }
     }
 
     @Override
     public void touchChangeReset() {
-
+        if (intervalCountDown.isSuspend()) {
+            intervalCountDown.rest();
+        }
     }
 
     /**
