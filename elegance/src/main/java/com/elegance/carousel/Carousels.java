@@ -36,7 +36,7 @@ public class Carousels extends FrameLayout implements CarouselViewPage.onTouchCh
     private DisplayMetrics mDisplayMetrics;
     private float heightScale;
     private CarouselPoint mCarouselPoints;
-
+    private int pageSelected=0;
     public Carousels(@NonNull Context context) {
         super(context);
         this.initScreen();
@@ -145,6 +145,10 @@ public class Carousels extends FrameLayout implements CarouselViewPage.onTouchCh
 
     private void drawPoints(List<View> views) {
         mCarouselPoints.onDrawPointsLength(views.size());
+        if (viewPagePosition!=0){
+            mCarouselPoints.setTransition(pageSelected);
+            mViewPager.setCurrentItem(pageSelected);
+        }
     }
 
     @Override
@@ -163,6 +167,7 @@ public class Carousels extends FrameLayout implements CarouselViewPage.onTouchCh
     @Override
     public void onPageSelected(int position) {
         this.viewPagePosition = position;
+        this.pageSelected=position;
         mCarouselPoints.setTransition(viewPagePosition);
     }
 

@@ -44,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
            conciseView=  findViewById(R.id.conciseView);
+
+    }
+
+    private void init(){
         String[] s = new String[]{url_01,url_02,url_03,url_04,url_05};
         List<View> a = new ArrayList<>();
         for (String ss:s){
@@ -52,11 +56,11 @@ public class MainActivity extends AppCompatActivity {
             Glide.with(this).load(ss).into(imageView);
             a.add(imageView);
         }
-        conciseView.setViews(a,1000);
+        conciseView.setViews(a,3000);
     }
-
     @Override
     protected void onResume() {
+        this.init();
         conciseView.runing();
         super.onResume();
     }
