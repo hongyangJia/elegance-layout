@@ -52,6 +52,7 @@ public class CarouselPoint extends View {
         this.transitionLift = 0;
         this.transitionRight = 0;
         this.invalidate();
+        setMeasuredDimension(CIRCLE * pointsLength + OFFSET + 20, 60);
     }
 
     public void setTransition(int positionTransition) {
@@ -59,6 +60,7 @@ public class CarouselPoint extends View {
         this.transitionLift = 0;
         this.transitionRight = 0;
         invalidate(CIRCLE * positionTransition + OFFSET - 20 - transitionLift, TOP, CIRCLE * positionTransition + OFFSET + 20 + transitionRight, BOTTOM);
+        setMeasuredDimension(CIRCLE * pointsLength + OFFSET + 20, 60);
     }
 
     public int getPositionTransition(){
@@ -115,7 +117,7 @@ public class CarouselPoint extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(/*CIRCLE * pointsLength + OFFSET + 20*/300, 60);
+
     }
 
 }

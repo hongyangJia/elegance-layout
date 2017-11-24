@@ -61,13 +61,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         this.init();
-        conciseView.runing();
+        conciseView.startCarouse();
         super.onResume();
     }
 
     @Override
     protected void onStop() {
-        conciseView.restore();
+        conciseView.stopCarouse();
         super.onStop();
     }
 
