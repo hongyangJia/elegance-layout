@@ -90,7 +90,7 @@ public class CarouselPoint extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (pointsLength == 0) return;
+        if (pointsLength <= 1) return;
         this.drawPoints(canvas);
         super.onDraw(canvas);
     }
