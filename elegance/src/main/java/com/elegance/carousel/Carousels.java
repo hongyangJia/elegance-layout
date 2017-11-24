@@ -117,13 +117,15 @@ public class Carousels extends FrameLayout implements CarouselViewPage.onTouchCh
         }
     }
 
-    public void restore(){
+    public void stopCarouse(){
+        if (intervalCountDown==null)return;
         if (!intervalCountDown.isSuspend()){
             intervalCountDown.restore();
         }
     }
 
-    public void runing(){
+    public void startCarouse(){
+        if (intervalCountDown==null)return;
         if (intervalCountDown.isSuspend()){
             intervalCountDown.rest();
         }
