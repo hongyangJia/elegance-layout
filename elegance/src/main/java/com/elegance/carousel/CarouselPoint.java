@@ -31,6 +31,7 @@ public class CarouselPoint extends View {
     private boolean isTransition;
     private Paint paint;
     private RectF rectF;
+    private int widthSpec;
     public CarouselPoint(Context context) {
         super(context);
         this.initCarouselPoint();
@@ -51,6 +52,7 @@ public class CarouselPoint extends View {
         this.pointsLength = pointsLength;
         this.transitionLift = 0;
         this.transitionRight = 0;
+        widthSpec=CIRCLE * pointsLength + OFFSET + 20;
         this.invalidate();
     }
 
@@ -69,7 +71,6 @@ public class CarouselPoint extends View {
     public void setTransitionLift(int transitionLift) {
             this.transitionLift = transitionLift;
             invalidate(CIRCLE * positionTransition + OFFSET - 20 - transitionLift, TOP, CIRCLE * positionTransition + OFFSET + 20 + transitionRight, BOTTOM);
-
     }
 
     public void setTransitionRight(int transitionRight) {
@@ -114,8 +115,7 @@ public class CarouselPoint extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if (pointsLength==0)return;
-        setMeasuredDimension(CIRCLE * pointsLength + OFFSET + 20, 60);
+        setMeasuredDimension(widthSpec, 60);
     }
 
 }
