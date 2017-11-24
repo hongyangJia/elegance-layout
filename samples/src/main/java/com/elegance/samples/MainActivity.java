@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
-        String[] s = new String[]{url_01};
+        String[] s = new String[]{url_01,url_02};
         List<View> a = new ArrayList<>();
         for (String ss:s){
             ImageView imageView = new ImageView(this);

@@ -99,7 +99,6 @@ public class CarouselPoint extends View {
         for (int i = 0; i < pointsLength; i++) {
             paint.setColor(Color.parseColor("#99FFFFFF"));
             canvas.drawCircle(CIRCLE * i + OFFSET, CY, RADIUS, paint);
-            Log.e("onDrawPointsLength",String.valueOf(String.valueOf(CIRCLE * i + OFFSET)));
         }
         drawRoundRect(canvas);
 
@@ -117,7 +116,7 @@ public class CarouselPoint extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
+        setMeasuredDimension(CIRCLE * pointsLength + OFFSET + 20, 60);
     }
 
 }
