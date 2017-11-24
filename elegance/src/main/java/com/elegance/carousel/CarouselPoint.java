@@ -48,7 +48,10 @@ public class CarouselPoint extends View {
     }
 
     public void onDrawPointsLength(int pointsLength) {
+        Log.e("onDrawPointsLength",String.valueOf(pointsLength));
         this.pointsLength = pointsLength;
+        this.transitionLift = 0;
+        this.transitionRight = 0;
         this.invalidate();
     }
 
