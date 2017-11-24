@@ -115,7 +115,7 @@ public class CarouselPoint extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(CIRCLE * pointsLength + OFFSET + 20, 60);
+        setMeasuredDimension(/*CIRCLE * pointsLength + OFFSET + 20*/300, 60);
     }
 
 }
