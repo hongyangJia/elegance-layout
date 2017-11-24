@@ -231,4 +231,9 @@ public class Carousels extends FrameLayout implements CarouselViewPage.onTouchCh
         }
     }
 
+    public void clear(){
+        mCarouselPoints=null;
+        mViewPager=null;
+    }
+
 }

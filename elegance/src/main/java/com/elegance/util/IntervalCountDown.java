@@ -23,6 +23,7 @@ public class IntervalCountDown extends Thread {
     private int count;
 
     public IntervalCountDown() {
+
     }
 
     @Override

@@ -48,7 +48,6 @@ public class CarouselPoint extends View {
     }
 
     public void onDrawPointsLength(int pointsLength) {
-        Log.e("onDrawPointsLength",String.valueOf(pointsLength));
         this.pointsLength = pointsLength;
         this.transitionLift = 0;
         this.transitionRight = 0;
@@ -98,6 +97,7 @@ public class CarouselPoint extends View {
         for (int i = 0; i < pointsLength; i++) {
             paint.setColor(Color.parseColor("#99FFFFFF"));
             canvas.drawCircle(CIRCLE * i + OFFSET, CY, RADIUS, paint);
+            Log.e("onDrawPointsLength",String.valueOf(String.valueOf(CIRCLE * i + OFFSET)));
         }
         drawRoundRect(canvas);
 

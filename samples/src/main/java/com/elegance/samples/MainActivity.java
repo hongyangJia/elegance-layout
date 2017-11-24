@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-           conciseView=  findViewById(R.id.conciseView);
+        conciseView=  findViewById(R.id.conciseView);
 
     }
 
@@ -69,5 +69,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         conciseView.restore();
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        conciseView=null;
+        super.onDestroy();
     }
 }
