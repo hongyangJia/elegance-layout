@@ -90,29 +90,43 @@ public class Carousels extends FrameLayout implements CarouselViewPage.onTouchCh
      */
     IntervalCountDown intervalCountDown;
 
-    public void setViews(final List<View> views, int delayed) {
+    public void setViews(List<View> views, int delayed) {
         CarouselsPagerAdapter carouselsPagerAdapter = new CarouselsPagerAdapter(views);
         mViewPager.setAdapter(carouselsPagerAdapter);
         this.drawPoints(views);
+        final int length=views.size();
         if (intervalCountDown == null) {
             intervalCountDown = new IntervalCountDown();
-        }
-        final android.os.Handler handler = new android.os.Handler(Looper.getMainLooper());
-        intervalCountDown.postDelayed(delayed, new IntervalCountDown.IntervalExecute() {
-            @Override
-            public void onComplete() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (viewPagePosition >= views.size()) {
-                            viewPagePosition = 0;
+            final android.os.Handler handler = new android.os.Handler(Looper.getMainLooper());
+            intervalCountDown.postDelayed(delayed, new IntervalCountDown.IntervalExecute() {
+                @Override
+                public void onComplete() {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (length==0)return;
+                            if (viewPagePosition >= length) {
+                                viewPagePosition = 0;
+                            }
+                            mViewPager.setCurrentItem(viewPagePosition);
+                            viewPagePosition++;
                         }
-                        mViewPager.setCurrentItem(viewPagePosition);
-                        viewPagePosition++;
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        }
+    }
+
+    public void restore(){
+        if (!intervalCountDown.isSuspend()){
+            intervalCountDown.restore();
+        }
+    }
+
+    public void runing(){
+        if (intervalCountDown.isSuspend()){
+            intervalCountDown.rest();
+        }
     }
 
     /**

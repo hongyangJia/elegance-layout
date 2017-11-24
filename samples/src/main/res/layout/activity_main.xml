@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.elegance.samples.MainActivity">
 
-<com.elegance.view.ConciseView
+<com.elegance.carousel.Carousels
     android:id="@+id/conciseView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:layout_concise_style="0"
+    app:height_scale="0.25"
     >
 
-</com.elegance.view.ConciseView>
+</com.elegance.carousel.Carousels>
 </android.support.constraint.ConstraintLayout>

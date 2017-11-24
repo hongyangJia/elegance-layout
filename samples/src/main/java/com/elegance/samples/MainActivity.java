@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String url_03="http://img3.xiazaizhijia.com/walls/20160324/mid_16d36c56d13ef7f.jpg";
     private static final String url_04="http://img1.xiazaizhijia.com/walls/20160909/mid_f35e64458b91d62.jpg";
     private static final String url_05="http://img1.xiazaizhijia.com/walls/20160909/mid_f35e64458b91d62.jpg";
-
+    Carousels  conciseView;
     private static View v;
 
 
@@ -43,9 +43,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ConciseView  conciseView=  findViewById(R.id.conciseView);
-        BeseConverter beseConverter = new BeseConverter(this);
-        conciseView.setConverter(beseConverter);
+           conciseView=  findViewById(R.id.conciseView);
+        String[] s = new String[]{url_01,url_02,url_03,url_04,url_05};
+        List<View> a = new ArrayList<>();
+        for (String ss:s){
+            ImageView imageView = new ImageView(this);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            Glide.with(this).load(ss).into(imageView);
+            a.add(imageView);
+        }
+        conciseView.setViews(a,1000);
     }
 
+    @Override
+    protected void onResume() {
+        conciseView.runing();
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        conciseView.restore();
+        super.onStop();
+    }
 }
