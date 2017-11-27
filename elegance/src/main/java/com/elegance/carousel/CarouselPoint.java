@@ -45,10 +45,11 @@ public class CarouselPoint extends View {
     private void initCarouselPoint() {
         paint = new Paint();
         rectF = new RectF();
-
+        Log.e(CarouselPoint.class.getSimpleName(),String.valueOf("initCarouselPoint"));
     }
 
     public void onDrawPointsLength(int pointsLength) {
+        Log.e(CarouselPoint.class.getSimpleName(),String.valueOf("onDrawPointsLength"));
         this.pointsLength = pointsLength;
         this.transitionLift = 0;
         this.transitionRight = 0;
@@ -57,6 +58,7 @@ public class CarouselPoint extends View {
     }
 
     public void setTransition(int positionTransition) {
+        Log.e(CarouselPoint.class.getSimpleName(),String.valueOf("positionTransition"));
         this.positionTransition = positionTransition;
         this.transitionLift = 0;
         this.transitionRight = 0;
@@ -89,6 +91,7 @@ public class CarouselPoint extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        Log.e(CarouselPoint.class.getSimpleName(),String.valueOf("onDraw"));
         if (pointsLength <= 1) return;
         this.drawPoints(canvas);
         super.onDraw(canvas);
@@ -100,7 +103,6 @@ public class CarouselPoint extends View {
             canvas.drawCircle(CIRCLE * i + OFFSET, CY, RADIUS, paint);
         }
         drawRoundRect(canvas);
-
     }
 
     private void drawRoundRect(Canvas canvas) {
@@ -114,6 +116,7 @@ public class CarouselPoint extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        Log.e(CarouselPoint.class.getSimpleName(),String.valueOf(widthSpec));
         setMeasuredDimension(widthSpec, 60);
     }
 

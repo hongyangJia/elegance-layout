@@ -63,7 +63,7 @@ public class CarouselViewPage extends ViewPager {
                 if (onTouchChangeListener != null) {
                     onTouchChangeListener.touchChangeReset();
                 }
-            /*    mVelocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
+            /*  mVelocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
                 int initialVelocity = (int) mVelocityTracker.getXVelocity(mActivePointerId);
                 final int currentPage = 0;
                 }*/
