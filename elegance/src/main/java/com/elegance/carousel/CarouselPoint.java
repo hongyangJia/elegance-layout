@@ -55,6 +55,7 @@ public class CarouselPoint extends View {
         this.transitionRight = 0;
         widthSpec=CIRCLE * pointsLength + OFFSET + 20;
         this.invalidate();
+        requestLayout();
     }
 
     public void setTransition(int positionTransition) {
