@@ -18,11 +18,11 @@ import android.view.View;
 public class CarouselPoint extends View {
 
     private static final int OFFSET = 10;
-    private static final int CIRCLE = 10;
-    private static final float RADIUS = 2.4f;
+    private static final float CIRCLE = 8.9f;
+    private static final float RADIUS = 2.3f;
     private static final int CY = 20;
-    private static final float TOP = 2.5f;
-    private static final float BOTTOM = 7.2f;
+    private static final float TOP = 2.6f;
+    private static final float BOTTOM = 7f;
     private static final int ROUND_XY = 15;
     private static final float INTERAVL=12.4f;
     private static final String COLOR="#59FFFFFF";
@@ -32,6 +32,7 @@ public class CarouselPoint extends View {
     private Paint paint;
     private RectF rectF;
     private int widthSpec;
+    private int heightSpec;
     private int circle;
     private int offset;
     private int interval;
@@ -57,6 +58,7 @@ public class CarouselPoint extends View {
         interval=dip2px(INTERAVL);
         top=dip2px(TOP);
         bottom=dip2px(BOTTOM);
+        heightSpec=(int) ((top+bottom)*1.5);
         paint.setColor(Color.parseColor("#59FFFFFF"));
         Log.e(CarouselPoint.class.getSimpleName(),String.valueOf("initCarouselPoint"));
     }
@@ -69,7 +71,7 @@ public class CarouselPoint extends View {
     public void onDrawPointsLength(int pointsLength) {
         Log.e(CarouselPoint.class.getSimpleName(),String.valueOf("onDrawPointsLength"));
         this.pointsLength = pointsLength;
-        widthSpec=circle * pointsLength + offset + 20;
+        widthSpec=circle * pointsLength + offset + interval;
         this.invalidate();
         requestLayout();
     }
@@ -108,9 +110,9 @@ public class CarouselPoint extends View {
     }
 
     private void drawRoundRect(Canvas canvas) {
-        rectF.left = (float) (circle * positionTransition + offset-(positionTransition==0?0:interval*0.2));
-        rectF.right = circle * positionTransition + offset + interval;
-        rectF.top = top;
+        rectF.left = (float) (circle * positionTransition + offset-(positionTransition==0?interval*0.2:interval*0.2));
+        rectF.right = (float) (circle * positionTransition + offset + interval);
+        rectF.top = (float) (top+top*0.12);
         rectF.bottom = bottom;
         canvas.drawRoundRect(rectF, ROUND_XY, ROUND_XY, paint);
     }
@@ -118,7 +120,7 @@ public class CarouselPoint extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         Log.e(CarouselPoint.class.getSimpleName(),String.valueOf(widthSpec));
-        setMeasuredDimension(widthSpec, 60);
+        setMeasuredDimension(widthSpec, heightSpec);
     }
 
 }
