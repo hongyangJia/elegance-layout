@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -16,22 +17,27 @@ import android.view.View;
 
 public class CarouselPoint extends View {
 
-    private static final int OFFSET = 35;
-    private static final int CIRCLE = 40;
-    private static final int RADIUS = 10;
+    private static final int OFFSET = 10;
+    private static final int CIRCLE = 10;
+    private static final float RADIUS = 2.4f;
     private static final int CY = 20;
-    private static final int TOP = 10;
-    private static final int BOTTOM = 30;
+    private static final float TOP = 2.5f;
+    private static final float BOTTOM = 7.2f;
     private static final int ROUND_XY = 15;
-
-    private int transitionLift;
-    private int transitionRight;
+    private static final float INTERAVL=12.4f;
+    private static final String COLOR="#59FFFFFF";
     private int pointsLength;
     private int positionTransition;
     private boolean isTransition;
     private Paint paint;
     private RectF rectF;
     private int widthSpec;
+    private int circle;
+    private int offset;
+    private int interval;
+    private int radius;
+    private int top;
+    private int bottom;
     public CarouselPoint(Context context) {
         super(context);
         this.initCarouselPoint();
@@ -45,15 +51,25 @@ public class CarouselPoint extends View {
     private void initCarouselPoint() {
         paint = new Paint();
         rectF = new RectF();
+        circle=dip2px(CIRCLE);
+        offset=dip2px(OFFSET);
+        radius=dip2px(RADIUS);
+        interval=dip2px(INTERAVL);
+        top=dip2px(TOP);
+        bottom=dip2px(BOTTOM);
+        paint.setColor(Color.parseColor("#59FFFFFF"));
         Log.e(CarouselPoint.class.getSimpleName(),String.valueOf("initCarouselPoint"));
+    }
+
+    public   int dip2px(float dpValue) {
+        final float scale = getContext().getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 
     public void onDrawPointsLength(int pointsLength) {
         Log.e(CarouselPoint.class.getSimpleName(),String.valueOf("onDrawPointsLength"));
         this.pointsLength = pointsLength;
-        this.transitionLift = 0;
-        this.transitionRight = 0;
-        widthSpec=CIRCLE * pointsLength + OFFSET + 20;
+        widthSpec=circle * pointsLength + offset + 20;
         this.invalidate();
         requestLayout();
     }
@@ -61,33 +77,15 @@ public class CarouselPoint extends View {
     public void setTransition(int positionTransition) {
         Log.e(CarouselPoint.class.getSimpleName(),String.valueOf("positionTransition"));
         this.positionTransition = positionTransition;
-        this.transitionLift = 0;
-        this.transitionRight = 0;
-        invalidate(CIRCLE * positionTransition + OFFSET - 20 - transitionLift, TOP, CIRCLE * positionTransition + OFFSET + 20 + transitionRight, BOTTOM);
+        invalidate(circle * positionTransition + offset - interval , top, circle * positionTransition + offset + interval , bottom);
     }
 
     public int getPositionTransition(){
         return this.positionTransition;
     }
 
-
-    public void setTransitionLift(int transitionLift) {
-            this.transitionLift = transitionLift;
-            invalidate(CIRCLE * positionTransition + OFFSET - 20 - transitionLift, TOP, CIRCLE * positionTransition + OFFSET + 20 + transitionRight, BOTTOM);
-    }
-
-    public void setTransitionRight(int transitionRight) {
-            this.transitionRight = transitionRight;
-            invalidate(CIRCLE * positionTransition + OFFSET - 20 - transitionLift, TOP, CIRCLE * positionTransition + OFFSET + 20 + transitionRight, BOTTOM);
-    }
-
     public void setTransitionReset() {
-        if (transitionLift != 0) {
-            Log.e(CarouselPoint.class.getSimpleName(), "左移动释放");
-        }
-        if (transitionRight != 0) {
-            Log.e(CarouselPoint.class.getSimpleName(), "右移动释放");
-        }
+
     }
 
     @Override
@@ -100,18 +98,20 @@ public class CarouselPoint extends View {
 
     public void drawPoints(Canvas canvas) {
         for (int i = 0; i < pointsLength; i++) {
-            paint.setColor(Color.parseColor("#99FFFFFF"));
-            canvas.drawCircle(CIRCLE * i + OFFSET, CY, RADIUS, paint);
+            if (i==positionTransition){
+                drawRoundRect(canvas);
+                continue;
+            }
+            paint.setColor(Color.parseColor("#59FFFFFF"));
+            canvas.drawCircle((float) (circle * i + offset+(i<positionTransition?0:interval*0.8)), top*2, radius, paint);
         }
-        drawRoundRect(canvas);
     }
 
     private void drawRoundRect(Canvas canvas) {
-        paint.setColor(Color.parseColor("#CCFFFF"));
-        rectF.left = CIRCLE * positionTransition + OFFSET - 20 - transitionLift;
-        rectF.right = CIRCLE * positionTransition + OFFSET + 20 + transitionRight;
-        rectF.top = TOP;
-        rectF.bottom = BOTTOM;
+        rectF.left = (float) (circle * positionTransition + offset-(positionTransition==0?0:interval*0.2));
+        rectF.right = circle * positionTransition + offset + interval;
+        rectF.top = top;
+        rectF.bottom = bottom;
         canvas.drawRoundRect(rectF, ROUND_XY, ROUND_XY, paint);
     }
 
