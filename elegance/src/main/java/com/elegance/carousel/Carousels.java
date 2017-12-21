@@ -35,6 +35,7 @@ public class Carousels extends FrameLayout implements CarouselViewPage.onTouchCh
     private CarouselViewPage mViewPager;
     private DisplayMetrics mDisplayMetrics;
     private float heightScale;
+    private int heightPixels;
     private CarouselPoint mCarouselPoints;
     private int pageSelected=0;
     public Carousels(@NonNull Context context) {
@@ -74,7 +75,8 @@ public class Carousels extends FrameLayout implements CarouselViewPage.onTouchCh
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
         mCarouselPoints.setLayoutParams(layoutParams);
-        mViewPager.setLayoutParams(new LayoutParams(mDisplayMetrics.widthPixels, (int) (heightScale * mDisplayMetrics.heightPixels)));
+        heightPixels= mDisplayMetrics.widthPixels*453/750;
+        mViewPager.setLayoutParams(new LayoutParams(mDisplayMetrics.widthPixels, heightPixels));
         addView(mViewPager);
         addView(mCarouselPoints);
 
@@ -158,12 +160,16 @@ public class Carousels extends FrameLayout implements CarouselViewPage.onTouchCh
         //set child view size
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         //set current view size
-        setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), (int) (heightScale * mDisplayMetrics.heightPixels));
+        setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec),heightPixels);
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+    }
+
+    public int  getHeightSpec(){
+        return heightPixels;
     }
 
     @Override
