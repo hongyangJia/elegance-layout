@@ -75,7 +75,7 @@ public class Carousels extends FrameLayout implements CarouselViewPage.onTouchCh
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
         mCarouselPoints.setLayoutParams(layoutParams);
-        heightPixels= mDisplayMetrics.widthPixels*453/750;
+        heightPixels= mDisplayMetrics.widthPixels*380/750;
         mViewPager.setLayoutParams(new LayoutParams(mDisplayMetrics.widthPixels, heightPixels));
         addView(mViewPager);
         addView(mCarouselPoints);
